@@ -1,10 +1,14 @@
-import { useState } from "react";
-import "./App.css";
+// import { useState } from "react";
+import Calculadora from "./components/Calculadora";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
-  return a;
+  return (
+    <div>
+      <Calculadora />
+    </div>
+  );
 }
 
 export default App;
