@@ -4,13 +4,19 @@ function Calculadora() {
   const [numero, setNumero] = useState("");
   const [calcu, setcalcu] = useState(0);
   const [opera, setOpera] = useState("");
+  const [texto, setTexto] = useState("Calculadora");
 
   const click = (valor) => {
     setNumero(numero + valor);
     // setNumero(valor.target.value);
   };
 
+  const textoSpan = (a) => {
+    setTexto(a);
+  };
+
   const suma = () => {
+    textoSpan("Suma Activa");
     // const sumatoria = parseInt(numero);
     // const res = parseInt(calcu) + sumatoria;
     // setcalcu(res.toString());
@@ -19,23 +25,43 @@ function Calculadora() {
     //   prevCalcu.length > 0 ? prevCalcu + "+" + numero : numero
     // );
     // setNumero("");
+    // preventDefault();
 
     if (numero !== "") {
-      const sumatoria = parseInt(numero);
-      const res = parseInt(calcu) + sumatoria;
+      const res = parseInt(calcu) + parseInt(numero);
       setcalcu(res.toString());
-      setOpera(calcu + "+" + sumatoria + "=" + res);
+      setOpera(`${calcu} + ${numero} = ${res}`);
       setNumero("");
     }
   };
 
-  const limpiar = (clear) => {
+  const resta = () => {
+    textoSpan("Resta Activa");
+    // if (numero !== "") {
+    //   const sumatoria = parseInt(numero);
+    //   // console.log(sumatoria);
+    //   const res = sumatoria - parseInt(calcu);
+    //   setcalcu(res.toString());
+    //   setOpera(calcu + "-" + sumatoria + "=" + res);
+    //   setOpera(res);
+    //   setNumero("");
+    // }
+    if (numero !== "") {
+      const diferencia = parseInt(numero) - parseInt(calcu);
+      setcalcu(diferencia.toString());
+      setOpera(`${calcu} - ${numero} = ${diferencia * -1}`);
+      setNumero("");
+    }
+  };
+
+  const limpiar = () => {
     setNumero("");
-    setcalcu("");
+    setOpera("");
   };
 
   return (
     <div className="Contenedor">
+      <span className="spanCambiante">{texto}</span>
       <div className="inputs12">
         <input
           autoFocus
@@ -44,7 +70,7 @@ function Calculadora() {
           //   click;
           // }}
           onChange={() => {
-            click;
+            click();
           }}
           className="inp1"
         ></input>
@@ -65,7 +91,7 @@ function Calculadora() {
               <button
                 className="nClear"
                 onClick={() => {
-                  limpiar("clear");
+                  limpiar();
                 }}
               >
                 Clear
@@ -145,7 +171,14 @@ function Calculadora() {
               </button>
             </td>
             <td>
-              <button className="nRestar">-</button>
+              <button
+                className="nRestar"
+                onClick={() => {
+                  resta();
+                }}
+              >
+                -
+              </button>
             </td>
           </tr>
           <tr>
@@ -213,6 +246,7 @@ function Calculadora() {
                 className="nIgual"
                 onClick={() => {
                   suma();
+                  // resta();
                 }}
               >
                 =
