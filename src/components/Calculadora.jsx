@@ -2,44 +2,74 @@ import React, { useState } from "react";
 
 function Calculadora() {
   const [numero, setNumero] = useState("");
-  const [operacion, setOperacion] = useState("");
-  const [calcu, setcalcu] = useState([]);
+  const [calcu, setcalcu] = useState(0);
+  const [opera, setOpera] = useState("");
 
   const click = (valor) => {
     setNumero(numero + valor);
+    // setNumero(valor.target.value);
   };
 
-  console.log(numero);
+  const suma = () => {
+    // const sumatoria = parseInt(numero);
+    // const res = parseInt(calcu) + sumatoria;
+    // setcalcu(res.toString());
+    // setcalcu(calcu + calcu);
+    // setcalcu((prevCalcu) =>
+    //   prevCalcu.length > 0 ? prevCalcu + "+" + numero : numero
+    // );
+    // setNumero("");
 
-  const suma = (sumar) => {
-    setcalcu([...calcu, numero]);
+    if (numero !== "") {
+      const sumatoria = parseInt(numero);
+      const res = parseInt(calcu) + sumatoria;
+      setcalcu(res.toString());
+      setOpera(calcu + "+" + sumatoria + "=" + res);
+      setNumero("");
+    }
+  };
+
+  const limpiar = (clear) => {
     setNumero("");
-  };
-  console.log(calcu);
-
-  const simbolos = () => {
-    setOperacion(calcu + "+");
+    setcalcu("");
   };
 
   return (
     <div className="Contenedor">
       <div className="inputs12">
-        <input className="inp2"></input>
-        {/* <br></br> */}
         <input
           autoFocus
           value={numero}
+          // onChange={() => {
+          //   click;
+          // }}
           onChange={() => {
             click;
           }}
           className="inp1"
         ></input>
+        <input
+          className="inp2"
+          value={opera}
+          // onChange={() => {
+          //   suma;
+          // }}
+          readOnly
+        ></input>
+        {/* <br></br> */}
       </div>
-      <table>
+      <table className="tablacontenedora">
         <tbody>
           <tr>
             <td colSpan={2}>
-              <button className="nClear">Clear</button>
+              <button
+                className="nClear"
+                onClick={() => {
+                  limpiar("clear");
+                }}
+              >
+                Clear
+              </button>
             </td>
             <td>
               <button className="nPorciento">%</button>
@@ -153,8 +183,7 @@ function Calculadora() {
               <button
                 className="nSumar"
                 onClick={() => {
-                  suma("sumar");
-                  simbolos();
+                  suma();
                 }}
               >
                 +
@@ -163,7 +192,14 @@ function Calculadora() {
           </tr>
           <tr>
             <td>
-              <button className="n0">0</button>
+              <button
+                className="n0"
+                onClick={() => {
+                  click(0);
+                }}
+              >
+                0
+              </button>
             </td>
             <td>
               <button className="nPunto">.</button>
@@ -172,11 +208,16 @@ function Calculadora() {
               <button className="nDel">⌫</button>
             </td>
             <td>
-              <form>
-                <button className="nIgual" onChange={() => {}}>
-                  =
-                </button>
-              </form>
+              {/* <form> */}
+              <button
+                className="nIgual"
+                onClick={() => {
+                  suma();
+                }}
+              >
+                =
+              </button>
+              {/* </form> */}
             </td>
           </tr>
         </tbody>

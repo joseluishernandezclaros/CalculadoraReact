@@ -26,12 +26,16 @@ body {
 .inp1,
 .inp2 {
   margin: 0;
-  /* padding: 0; */
+  padding: 0px 5px;
   border: 0;
   width: 150px;
   height: 30px;
   background-color: rgb(56, 56, 112);
   color: white;
+}
+
+.inp1 {
+  text-align: end;
 }
 
 .inp1:focus {
@@ -60,7 +64,6 @@ body {
   height: 30px;
   border-radius: 7px;
   border-color: rgb(46, 41, 41);
-  border: hover
 }
 
 .n9:hover,
@@ -74,4 +77,29 @@ body {
 .n1:hover,
 .n0:hover {
   color: blue;
+}
+
+.nClear {
+  width: 62px;
+  height: 30px;
+  border-radius: 7px;
+  border-color: rgb(46, 41, 41);
+}
+
+.nPorciento,
+.nDividir,
+.nMultiplicar,
+.nIgual,
+.nDel,
+.nPunto,
+.nRestar,
+.nSumar {
+  height: 30px;
+  width: 30px;
+  border-radius: 7px;
+  border-color: rgb(46, 41, 41);
+}
+
+.tablacontenedora {
+  padding: 5px;
 }
