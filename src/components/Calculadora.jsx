@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Calculadora() {
   const [numero, setNumero] = useState("");
   const [calcu, setcalcu] = useState(0);
+  const [calcu2, setcalcu2] = useState("1");
   const [opera, setOpera] = useState("");
   const [texto, setTexto] = useState("Calculadora");
 
@@ -26,7 +27,6 @@ function Calculadora() {
     // );
     // setNumero("");
     // preventDefault();
-
     if (numero !== "") {
       const res = parseInt(calcu) + parseInt(numero);
       setcalcu(res.toString());
@@ -37,15 +37,6 @@ function Calculadora() {
 
   const resta = () => {
     textoSpan("Resta Activa");
-    // if (numero !== "") {
-    //   const sumatoria = parseInt(numero);
-    //   // console.log(sumatoria);
-    //   const res = sumatoria - parseInt(calcu);
-    //   setcalcu(res.toString());
-    //   setOpera(calcu + "-" + sumatoria + "=" + res);
-    //   setOpera(res);
-    //   setNumero("");
-    // }
     if (numero !== "") {
       const diferencia = parseInt(numero) - parseInt(calcu);
       setcalcu(diferencia.toString());
@@ -54,8 +45,41 @@ function Calculadora() {
     }
   };
 
+  const multiplicacion = () => {
+    textoSpan("Multiplicación Activa");
+    if (numero !== "") {
+      const resultado = parseInt(numero) * parseInt(calcu2);
+      setcalcu2(resultado.toString());
+      if (calcu2 === "1") {
+        setOpera(`${resultado}`);
+      } else {
+        setOpera(`${calcu2} * ${numero} = ${resultado}`);
+      }
+
+      setNumero("");
+    }
+  };
+
+  const division = () => {
+    textoSpan("Division Activa");
+    if (numero !== "") {
+      const divires = parseInt(numero) / parseInt(calcu2);
+      setcalcu2(divires.toString());
+      if (calcu2 === "1") {
+        setOpera(`${numero}`);
+      } else {
+        setOpera(`${calcu2} / ${numero} = ${divires}`);
+      }
+
+      setNumero("");
+    }
+  };
+
   const limpiar = () => {
+    textoSpan("Calculadora");
     setNumero("");
+    setcalcu(0);
+    setcalcu2("1");
     setOpera("");
   };
 
@@ -73,6 +97,7 @@ function Calculadora() {
             click();
           }}
           className="inp1"
+          // type="number"
         ></input>
         <input
           className="inp2"
@@ -101,7 +126,14 @@ function Calculadora() {
               <button className="nPorciento">%</button>
             </td>
             <td>
-              <button className="nDividir">/</button>
+              <button
+                className="nDividir"
+                onClick={() => {
+                  division();
+                }}
+              >
+                /
+              </button>
             </td>
           </tr>
           <tr>
@@ -136,7 +168,14 @@ function Calculadora() {
               </button>
             </td>
             <td>
-              <button className="nMultiplicar">*</button>
+              <button
+                className="nMultiplicar"
+                onClick={() => {
+                  multiplicacion();
+                }}
+              >
+                *
+              </button>
             </td>
           </tr>
           <tr>
