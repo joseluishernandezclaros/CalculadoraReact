@@ -86,14 +86,20 @@ body {
   border-color: rgb(46, 41, 41);
 }
 
+.nSumar {
+  height: 62px;
+  width: 30px;
+  border-radius: 7px;
+  border-color: rgb(46, 41, 41);
+}
+
 .nPorciento,
 .nDividir,
 .nMultiplicar,
 .nIgual,
 .nDel,
 .nPunto,
-.nRestar,
-.nSumar {
+.nRestar {
   height: 30px;
   width: 30px;
   border-radius: 7px;

@@ -280,7 +280,7 @@ function Calculadora() {
                 3
               </button>
             </td>
-            <td>
+            <td rowSpan={2}>
               <button
                 className="nSumar"
                 onClick={() => {
@@ -324,15 +324,14 @@ function Calculadora() {
             </td>
             <td>
               {/* <form> */}
-              <button
+              {/* <button
                 className="nIgual"
                 onClick={() => {
-                  suma();
-                  // resta();
+                  resultado();
                 }}
               >
                 =
-              </button>
+              </button> */}
               {/* </form> */}
             </td>
           </tr>
