@@ -1,86 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Calculadora() {
   const [numero, setNumero] = useState("");
   const [calcu, setcalcu] = useState(0);
-  const [calcu2, setcalcu2] = useState("1");
   const [opera, setOpera] = useState("");
   const [texto, setTexto] = useState("Calculadora");
 
-  const click = (valor) => {
-    setNumero(numero + valor);
-    // setNumero(valor.target.value);
+  const click = (num) => {
+    setNumero(numero + num);
   };
 
-  const textoSpan = (a) => {
-    setTexto(a);
+  const limpiar = () => {
+    setTexto("Calculadora");
+    setNumero("");
+    setcalcu(0);
+    setOpera("");
+  };
+
+  const puntoClick = () => {
+    setTexto("Calculadora");
+    if (numero === "") {
+      setNumero("0.");
+    } else if (numero.indexOf(".") === -1) {
+      setNumero(numero + ".");
+    }
   };
 
   const suma = () => {
-    textoSpan("Suma Activa");
-    // const sumatoria = parseInt(numero);
-    // const res = parseInt(calcu) + sumatoria;
-    // setcalcu(res.toString());
-    // setcalcu(calcu + calcu);
-    // setcalcu((prevCalcu) =>
-    //   prevCalcu.length > 0 ? prevCalcu + "+" + numero : numero
-    // );
-    // setNumero("");
-    // preventDefault();
-    if (numero !== "") {
-      const res = parseInt(calcu) + parseInt(numero);
-      setcalcu(res.toString());
-      setOpera(`${calcu} + ${numero} = ${res}`);
+    setTexto("Suma Activa");
+    if (numero !== "" && calcu !== 0) {
+      const resultado = parseFloat(calcu) + parseFloat(numero);
+      setcalcu(resultado.toString());
+      setOpera(`${calcu} + ${numero} = ${resultado}`);
+      setNumero("");
+    } else {
+      setcalcu(parseFloat(numero).toString());
+      setOpera(`${numero} + `);
       setNumero("");
     }
   };
 
   const resta = () => {
-    textoSpan("Resta Activa");
-    if (numero !== "") {
-      const diferencia = parseInt(numero) - parseInt(calcu);
-      setcalcu(diferencia.toString());
-      setOpera(`${calcu} - ${numero} = ${diferencia * -1}`);
+    setTexto("Resta Activa");
+    if (numero !== "" && calcu !== 0) {
+      const resultado = parseFloat(calcu) - parseFloat(numero);
+      setcalcu(resultado.toString());
+      setOpera(`${calcu} - ${numero} = ${resultado}`);
+      setNumero("");
+    } else {
+      setcalcu(parseFloat(numero).toString());
+      setOpera(`${numero} - `);
       setNumero("");
     }
   };
 
   const multiplicacion = () => {
-    textoSpan("Multiplicación Activa");
-    if (numero !== "") {
-      const resultado = parseInt(numero) * parseInt(calcu2);
-      setcalcu2(resultado.toString());
-      if (calcu2 === "1") {
-        setOpera(`${resultado}`);
-      } else {
-        setOpera(`${calcu2} * ${numero} = ${resultado}`);
-      }
-
+    setTexto("Multiplicación Activa");
+    if (numero !== "" && calcu !== 0) {
+      const resultado = parseFloat(calcu) * parseFloat(numero);
+      setcalcu(resultado.toString());
+      setOpera(`${calcu} * ${numero} = ${resultado}`);
+      setNumero("");
+    } else {
+      setcalcu(parseFloat(numero).toString());
+      setOpera(`${numero} * `);
       setNumero("");
     }
   };
 
   const division = () => {
-    textoSpan("Division Activa");
-    if (numero !== "") {
-      const divires = parseInt(numero) / parseInt(calcu2);
-      setcalcu2(divires.toString());
-      if (calcu2 === "1") {
-        setOpera(`${numero}`);
-      } else {
-        setOpera(`${calcu2} / ${numero} = ${divires}`);
-      }
-
+    setTexto("División Activa");
+    if (numero !== "" && calcu !== 0) {
+      const resultado = parseFloat(calcu) / parseFloat(numero);
+      setcalcu(resultado.toString());
+      setOpera(`${calcu} / ${numero} = ${resultado}`);
+      setNumero("");
+    } else {
+      setcalcu(parseFloat(numero).toString());
+      setOpera(`${numero} / `);
       setNumero("");
     }
   };
 
-  const limpiar = () => {
-    textoSpan("Calculadora");
-    setNumero("");
-    setcalcu(0);
-    setcalcu2("1");
-    setOpera("");
+  const porcientoClick = () => {
+    setTexto("Porcentaje Activo");
+    if (numero !== "" && calcu !== 0) {
+      const resultado = (parseFloat(calcu) * parseFloat(numero)) / 100;
+      setcalcu(resultado.toString());
+      setOpera(`${calcu} % ${numero} = ${resultado}`);
+      setNumero("");
+    } else {
+      setcalcu(parseFloat(numero).toString());
+      setOpera(`${numero} % `);
+      setNumero("");
+    }
+  };
+
+  const borrar = () => {
+    setTexto("Borrar Activo");
+    if (numero.length === 1) {
+      setNumero("");
+    } else {
+      setNumero(numero.slice(0, -1));
+    }
   };
 
   return (
@@ -123,7 +145,14 @@ function Calculadora() {
               </button>
             </td>
             <td>
-              <button className="nPorciento">%</button>
+              <button
+                className="nPorciento"
+                onClick={() => {
+                  porcientoClick();
+                }}
+              >
+                %
+              </button>
             </td>
             <td>
               <button
@@ -274,10 +303,24 @@ function Calculadora() {
               </button>
             </td>
             <td>
-              <button className="nPunto">.</button>
+              <button
+                className="nPunto"
+                onClick={() => {
+                  puntoClick();
+                }}
+              >
+                .
+              </button>
             </td>
             <td>
-              <button className="nDel">⌫</button>
+              <button
+                className="nDel"
+                onClick={() => {
+                  borrar();
+                }}
+              >
+                ⌫
+              </button>
             </td>
             <td>
               {/* <form> */}
